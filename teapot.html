@@ -22,17 +22,38 @@
     margin-top: 4em;
     opacity: 0.02;
   }
+  .midi-player {
+  display: inline-block;
+  background: #c0c0c0;
+  padding: 4px;
+  border: 2px outset #eee;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+}
+
+.midi-player button {
+  width: 44px;
+  height: 22px;
+  margin: 2px;
+  background: #d4d0c8;
+  border: 2px outset #fff;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.midi-player button:active {
+  border: 2px inset #fff;
+}
 </style>
 </head>
 
 <body>
 
 <h1>☕🎵 Woopti-flooba-doo, t'was a 418 for youu!🎶☕</h1>
+  <p>Hit the baby One More Time:</p>
   <audio controls autoplay playsinline>
     <source src="https://cdn.freesound.org/previews/104/104183_1690027-lq.mp3" type="audio/mpeg">
   </audio><br><br>
-
-
+  Haha!
 <div class="frame">
   <p>You found the server.</p>
   <p>You did not find a service.</p>
@@ -43,23 +64,34 @@
 <q>I'm a little teapot short and stout... ¯\_(ツ)_/¯ Ohh f*ck no.. I'm a sugar bowl.</q> <br>   <p>– YeayTou</p>
 
 </div>
+  
+  <p>If you know you know.</p>
+  <div class="midi-player">
+  <button id="play">play</button>
+  <button id="stop">stop</button>
 
-<div class="sig">
-  <audio id="bg-audio" controls autoplay playsinline>
-  <source src="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/93/d3/4a/93d34a99-facc-d71d-012d-85070db14217/mzaf_5326873671176571127.plus.aac.ep.m4a" type="audio/mp4">
-</audio>
+  <audio id="audio" preload="auto">
+    <source src="https://r2pitou.github.io/YeayTou/Canon%20in%20Enya.mp3" type="audio/mpeg">
+  </audio>
+    <script>
+const audio = document.getElementById("audio");
+const play = document.getElementById("play");
+const stop = document.getElementById("stop");
 
-<script>
-document.addEventListener('click', () => {
-  const audio = document.getElementById('bg-audio');
+play.addEventListener("click", () => {
+  audio.play();
+  play.disabled = true;     // optional authenticity
+});
 
-  audio.muted = false;        // MUST happen in gesture
-  audio.currentTime ||= 0;   // defensive
-  audio.play().catch(() => {});
-}, { once: true });
+stop.addEventListener("click", (e) => {
+  // Intentionally do nothing.
+  // This button is decorative.
+  e.preventDefault();
+});
 </script>
 </div>
-
+<br>
+  <h6>Burana F5</h6>
 
   <p>Go Enya! That lady had to withstand us 80-90's kids embedding Only Time midis on our old world static web pages with autoplay on and <b>NO</b> ✨pause✨ button ❤️<br>
   <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/song/only-time/1499659361"></iframe></p>
