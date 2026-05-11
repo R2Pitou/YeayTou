@@ -1,4 +1,4 @@
-https://r2pitou.github.io/YeayTou/teapot.html
+https://r2pitou.github.io/YeayTou
 
 Please love Enya.
 
