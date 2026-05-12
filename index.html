@@ -43,16 +43,84 @@
 .midi-player button:active {
   border: 2px inset #fff;
 }
+  .baby-zone {
+  margin: 1.5em 0;
+}
+
+.baby-stage {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+  min-height: 180px;
+  margin-bottom: 1em;
+  padding: 1em;
+  border: 3px dotted #2b0f1a;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.dancing-baby {
+  max-width: 180px;
+  height: auto;
+  image-rendering: auto;
+}
+
+.baby-rip {
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-size: 1.8rem;
+  text-align: center;
+  line-height: 1.2;
+  color: #2b0f1a;
+}
 </style>
 </head>
 
 <body>
 
 <h1>☕🎵 Woopti-flooba-doo, t'was a 418 for youu!🎶☕</h1>
+ <br>
+  <div class="baby-zone">
+  <div id="baby-stage" class="baby-stage">
+    <img
+      id="dancing-baby"
+      src="BabyOrigMed1.gif"
+      alt="The original dancing baby GIF."
+      class="dancing-baby"
+    >
+    <div id="baby-rip" class="baby-rip" hidden>
+      <strong>R.I.P.</strong><br>
+      DancingBaby.gif
+    </div>
+  </div>
+
   <p>Hit the baby One More Time:</p>
-  <audio controls autoplay playsinline>
+
+  <audio id="baby-whack" controls playsinline>
     <source src="https://cdn.freesound.org/previews/104/104183_1690027-lq.mp3" type="audio/mpeg">
-  </audio><br><p><small>R.I.P. dancing baby.gif Bonk.</small></p><br>
+  </audio>
+</div>
+
+<script>
+  const babyAudio = document.getElementById("baby-whack");
+  const dancingBaby = document.getElementById("dancing-baby");
+  const babyRip = document.getElementById("baby-rip");
+
+  function killTheBaby() {
+    if (!dancingBaby || !babyRip) return;
+
+    dancingBaby.hidden = true;
+    babyRip.hidden = false;
+  }
+
+  babyAudio.addEventListener("play", killTheBaby);
+
+  babyAudio.addEventListener("click", () => {
+    babyAudio.play().catch(() => {
+      // Browser blocked playback or user clicked a non-play part of the controls.
+      // No problem. The play event will handle the real trigger.
+    });
+  });
+</script>
   
 <div class="frame">
   <p>You found the server.</p>
