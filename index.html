@@ -132,6 +132,72 @@
 .burana-actions button:active {
   border: 2px inset #eee;
 }
+  Thought for 9s
+
+Yes. Since you moved the marquee inside .midi-player, remove the old position: fixed marquee CSS. That fixed-position version is what made it a page-wide bottom banner.
+
+Use this CSS instead.
+
+/* Marquee inside the fake MIDI player */
+.midi-player {
+  display: inline-block;
+  background: #c0c0c0;
+  padding: 4px;
+  border: 2px outset #eee;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  max-width: min(100%, 360px);
+}
+
+.midi-player button {
+  width: 44px;
+  height: 22px;
+  margin: 2px;
+  background: #d4d0c8;
+  border: 2px outset #fff;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.midi-player button:active {
+  border: 2px inset #fff;
+}
+
+.retro-marquee {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  overflow: hidden;
+  margin-bottom: 4px;
+  border: 2px inset #eee;
+  background: #000080;
+  color: #ffff00;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.retro-marquee[hidden] {
+  display: none;
+}
+
+.retro-marquee-track {
+  display: inline-flex;
+  gap: 2rem;
+  min-width: max-content;
+  padding: 2px 4px;
+  animation: yeaytou-scroll 12s linear infinite;
+}
+
+@keyframes yeaytou-scroll {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
 </style>
 </head>
 
@@ -196,6 +262,14 @@
   
   <p>If you know you know.</p>
 <div class="midi-player">
+  <div id="retro-marquee" class="retro-marquee" hidden>
+  <div class="retro-marquee-track">
+    <span>🎵 NOW PLAYING: Canon in Enya🎵</span>
+    <span>☕ YeayTou has assumed control of the audio device. ☕</span>
+  </div>
+</div>
+
+<div id="mouse-haunting" class="mouse-haunting" aria-hidden="true"></div>
   <button id="play">play</button>
   <button id="stop">stop</button>
 
@@ -290,7 +364,68 @@
 
   <p>Go Enya! That lady had to withstand us 80-90's kids embedding Only Time midis on our old world static web pages with autoplay on and <b>NO</b> ✨pause✨ button ❤️<br>
   <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/song/only-time/1499659361"></iframe></p>
+<script>
+  const retroMarquee = document.getElementById("retro-marquee");
+  const mouseHaunting = document.getElementById("mouse-haunting");
 
+  let retroCursesStarted = false;
+  let lastHauntTime = 0;
+
+  const hauntWords = [
+    "Canon in Enya",
+    "Only Time will tell",
+    "YeayTou",
+    "🎵",
+    "☕",
+    "¯\_(ツ)_/¯"
+  ];
+
+  function startRetroCurses() {
+    if (retroCursesStarted) return;
+
+    retroCursesStarted = true;
+
+    if (retroMarquee) {
+      retroMarquee.hidden = false;
+    }
+
+    document.addEventListener("mousemove", hauntTheMouse);
+  }
+
+  function hauntTheMouse(event) {
+    const now = Date.now();
+
+    // Throttle so it does not create 9000 DOM nodes per second.
+    if (now - lastHauntTime < 90) return;
+    lastHauntTime = now;
+
+    if (!mouseHaunting) return;
+
+    const bit = document.createElement("span");
+    const word = hauntWords[Math.floor(Math.random() * hauntWords.length)];
+
+    bit.className = "mouse-haunt-bit";
+    bit.textContent = word;
+    bit.style.left = event.clientX + "px";
+    bit.style.top = event.clientY + "px";
+
+    mouseHaunting.appendChild(bit);
+
+    window.setTimeout(() => {
+      bit.remove();
+    }, 1500);
+  }
+
+  // Trigger on actual playback.
+  if (audio) {
+    audio.addEventListener("play", startRetroCurses);
+  }
+
+  // Also trigger on play button click, because evil should be punctual.
+  if (play) {
+    play.addEventListener("click", startRetroCurses);
+  }
+</script>
   <p>GrannyCore Teapot by Arttu Pitou At</p>
 </body>
 </html>
