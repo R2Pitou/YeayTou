@@ -72,6 +72,66 @@
   line-height: 1.2;
   color: #2b0f1a;
 }
+  .stop-troll-log {
+  margin: 1em 0;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  color: #2b0f1a;
+}
+
+.stop-troll-log p {
+  margin: 0.25em 0;
+}
+
+.burana-notification {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(43, 15, 26, 0.45);
+}
+
+.burana-notification[hidden] {
+  display: none;
+}
+
+.burana-box {
+  width: min(100%, 520px);
+  border: 4px dotted #2b0f1a;
+  padding: 1.5rem;
+  background: #f0a3bc;
+  color: #2b0f1a;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  box-shadow: 8px 8px 0 rgba(43, 15, 26, 0.35);
+}
+
+.burana-box h2 {
+  margin: 0 0 0.75rem;
+  border-bottom: 2px dotted #2b0f1a;
+  padding-bottom: 0.4rem;
+}
+
+.burana-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.burana-actions button {
+  border: 2px outset #eee;
+  padding: 0.55rem 0.85rem;
+  background: #d4d0c8;
+  color: #2b0f1a;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.burana-actions button:active {
+  border: 2px inset #eee;
+}
 </style>
 </head>
 
@@ -135,32 +195,98 @@
 </div>
   
   <p>If you know you know.</p>
-  <div class="midi-player">
+<div class="midi-player">
   <button id="play">play</button>
   <button id="stop">stop</button>
 
   <audio id="audio" preload="auto">
     <source src="https://r2pitou.github.io/YeayTou/Canon%20in%20Enya.mp3" type="audio/mpeg">
   </audio>
-    <script>
-const audio = document.getElementById("audio");
-const play = document.getElementById("play");
-const stop = document.getElementById("stop");
-
-play.addEventListener("click", () => {
-  audio.play();
-  play.disabled = true;     // optional authenticity
-});
-
-stop.addEventListener("click", (e) => {
-  // Intentionally do nothing.
-  // This button is decorative.
-  e.preventDefault();
-});
-</script>
 </div>
-<br>
-  <h6>Burana F5</h6>
+
+<div id="stop-troll-log" class="stop-troll-log" aria-live="polite"></div>
+
+<div id="burana-notification" class="burana-notification" hidden>
+  <div class="burana-box" role="dialog" aria-labelledby="burana-title" aria-describedby="burana-message">
+    <h2 id="burana-title">You should know better!</h2>
+    <p id="burana-message">
+      We didn't hoard these MIDIs for you to pause the playback! Take a Burana F5.
+    </p>
+    <div class="burana-actions">
+      <button id="nah-like-it">Nah I like it.</button>
+      <button id="burana-f5">Burana F5</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const audio = document.getElementById("audio");
+  const play = document.getElementById("play");
+  const stop = document.getElementById("stop");
+  const stopTrollLog = document.getElementById("stop-troll-log");
+  const buranaNotification = document.getElementById("burana-notification");
+  const nahLikeIt = document.getElementById("nah-like-it");
+  const buranaF5 = document.getElementById("burana-f5");
+
+  let stopClicks = 0;
+
+  play.addEventListener("click", () => {
+    audio.play().catch(() => {
+      // Browser refused autoplay/playback. YeayTou remains disappointed.
+    });
+
+    play.disabled = true;
+  });
+
+  function appendTrollLine(text) {
+    const line = document.createElement("p");
+    line.textContent = text;
+    stopTrollLog.appendChild(line);
+  }
+
+  function showBuranaNotification() {
+    buranaNotification.hidden = false;
+  }
+
+  stop.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    stopClicks += 1;
+
+    if (stopClicks === 1) {
+      stopTrollLog.innerHTML = "";
+      appendTrollLine("Click again.");
+      return;
+    }
+
+    if (stopClicks === 2) {
+      appendTrollLine("Sorry, didn't catch that. Try again.");
+      return;
+    }
+
+    if (stopClicks === 3) {
+      appendTrollLine("What did you say love? Try a couple more times.");
+      return;
+    }
+
+    if (stopClicks === 5) {
+      showBuranaNotification();
+      return;
+    }
+
+    if (stopClicks > 5) {
+      appendTrollLine("The stop button remains decorative. This is a heritage feature.");
+    }
+  });
+
+  nahLikeIt.addEventListener("click", () => {
+    buranaNotification.hidden = true;
+  });
+
+  buranaF5.addEventListener("click", () => {
+    window.location.reload();
+  });
+</script>
 
   <p>Go Enya! That lady had to withstand us 80-90's kids embedding Only Time midis on our old world static web pages with autoplay on and <b>NO</b> ✨pause✨ button ❤️<br>
   <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/song/only-time/1499659361"></iframe></p>
