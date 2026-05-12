@@ -2,217 +2,235 @@
 <head>
 <title>That's the Tea!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
   body {
     background: #f0a3bc;
     color: #2b0f1a;
-    font-family: comic sans MS;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
     padding: 4em;
   }
+
   h1 {
     border-bottom: 2px dotted #2b0f1a;
     padding-bottom: 0.5em;
   }
+
   .frame {
     border: 3px dotted #2b0f1a;
     padding: 2em;
     background: rgba(255,255,255,0.35);
   }
+
   .sig {
     margin-top: 4em;
     opacity: 0.02;
   }
-  .midi-player {
-  display: inline-block;
-  background: #c0c0c0;
-  padding: 4px;
-  border: 2px outset #eee;
-  font-family: Tahoma, Verdana, Arial, sans-serif;
-}
 
-.midi-player button {
-  width: 44px;
-  height: 22px;
-  margin: 2px;
-  background: #d4d0c8;
-  border: 2px outset #fff;
-  font-size: 11px;
-  cursor: pointer;
-}
-
-.midi-player button:active {
-  border: 2px inset #fff;
-}
   .baby-zone {
-  margin: 1.5em 0;
-}
+    margin: 1.5em 0;
+  }
 
-.baby-stage {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 180px;
-  min-height: 180px;
-  margin-bottom: 1em;
-  padding: 1em;
-  border: 3px dotted #2b0f1a;
-  background: rgba(255, 255, 255, 0.35);
-}
+  .baby-stage {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+    min-height: 180px;
+    margin-bottom: 1em;
+    padding: 1em;
+    border: 3px dotted #2b0f1a;
+    background: rgba(255, 255, 255, 0.35);
+  }
 
-.dancing-baby {
-  max-width: 180px;
-  height: auto;
-  image-rendering: auto;
-}
+  .dancing-baby {
+    max-width: 180px;
+    height: auto;
+    image-rendering: auto;
+  }
 
-.baby-rip {
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
-  font-size: 1.8rem;
-  text-align: center;
-  line-height: 1.2;
-  color: #2b0f1a;
-}
+  .baby-rip {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-size: 1.8rem;
+    text-align: center;
+    line-height: 1.2;
+    color: #2b0f1a;
+  }
+
+  .midi-player {
+    display: inline-block;
+    background: #c0c0c0;
+    padding: 4px;
+    border: 2px outset #eee;
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+    max-width: min(100%, 360px);
+  }
+
+  .midi-player button {
+    width: 44px;
+    height: 22px;
+    margin: 2px;
+    background: #d4d0c8;
+    border: 2px outset #fff;
+    font-size: 11px;
+    cursor: pointer;
+  }
+
+  .midi-player button:active {
+    border: 2px inset #fff;
+  }
+
+  .retro-marquee {
+    display: block;
+    width: 100%;
+    max-width: 340px;
+    overflow: hidden;
+    margin-bottom: 4px;
+    border: 2px inset #eee;
+    background: #000080;
+    color: #ffff00;
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  .retro-marquee[hidden] {
+    display: none;
+  }
+
+  .retro-marquee-track {
+    display: inline-flex;
+    gap: 2rem;
+    min-width: max-content;
+    padding: 2px 4px;
+    animation: yeaytou-scroll 12s linear infinite;
+  }
+
+  @keyframes yeaytou-scroll {
+    from {
+      transform: translateX(100%);
+    }
+
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  .mouse-haunting {
+    position: fixed;
+    inset: 0;
+    z-index: 9996;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .mouse-haunt-bit {
+    position: fixed;
+    pointer-events: none;
+    color: #2b0f1a;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-size: 0.95rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #f0a3bc;
+    transform: translate(-50%, -50%);
+    animation: haunt-fade 1.4s ease-out forwards;
+  }
+
+  @keyframes haunt-fade {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -95%) scale(0.85) rotate(-8deg);
+    }
+  }
+
   .stop-troll-log {
-  margin: 1em 0;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
-  color: #2b0f1a;
-}
-
-.stop-troll-log p {
-  margin: 0.25em 0;
-}
-
-.burana-notification {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: grid;
-  place-items: center;
-  padding: 1.5rem;
-  background: rgba(43, 15, 26, 0.45);
-}
-
-.burana-notification[hidden] {
-  display: none;
-}
-
-.burana-box {
-  width: min(100%, 520px);
-  border: 4px dotted #2b0f1a;
-  padding: 1.5rem;
-  background: #f0a3bc;
-  color: #2b0f1a;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
-  box-shadow: 8px 8px 0 rgba(43, 15, 26, 0.35);
-}
-
-.burana-box h2 {
-  margin: 0 0 0.75rem;
-  border-bottom: 2px dotted #2b0f1a;
-  padding-bottom: 0.4rem;
-}
-
-.burana-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1.25rem;
-}
-
-.burana-actions button {
-  border: 2px outset #eee;
-  padding: 0.55rem 0.85rem;
-  background: #d4d0c8;
-  color: #2b0f1a;
-  font-family: Tahoma, Verdana, Arial, sans-serif;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.burana-actions button:active {
-  border: 2px inset #eee;
-}
-  Thought for 9s
-
-Yes. Since you moved the marquee inside .midi-player, remove the old position: fixed marquee CSS. That fixed-position version is what made it a page-wide bottom banner.
-
-Use this CSS instead.
-
-/* Marquee inside the fake MIDI player */
-.midi-player {
-  display: inline-block;
-  background: #c0c0c0;
-  padding: 4px;
-  border: 2px outset #eee;
-  font-family: Tahoma, Verdana, Arial, sans-serif;
-  max-width: min(100%, 360px);
-}
-
-.midi-player button {
-  width: 44px;
-  height: 22px;
-  margin: 2px;
-  background: #d4d0c8;
-  border: 2px outset #fff;
-  font-size: 11px;
-  cursor: pointer;
-}
-
-.midi-player button:active {
-  border: 2px inset #fff;
-}
-
-.retro-marquee {
-  display: block;
-  width: 100%;
-  max-width: 340px;
-  overflow: hidden;
-  margin-bottom: 4px;
-  border: 2px inset #eee;
-  background: #000080;
-  color: #ffff00;
-  font-family: Tahoma, Verdana, Arial, sans-serif;
-  font-size: 11px;
-  line-height: 1.4;
-  white-space: nowrap;
-}
-
-.retro-marquee[hidden] {
-  display: none;
-}
-
-.retro-marquee-track {
-  display: inline-flex;
-  gap: 2rem;
-  min-width: max-content;
-  padding: 2px 4px;
-  animation: yeaytou-scroll 12s linear infinite;
-}
-
-@keyframes yeaytou-scroll {
-  from {
-    transform: translateX(100%);
+    margin: 1em 0;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    color: #2b0f1a;
   }
 
-  to {
-    transform: translateX(-100%);
+  .stop-troll-log p {
+    margin: 0.25em 0;
   }
-}
+
+  .burana-notification {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+    background: rgba(43, 15, 26, 0.45);
+  }
+
+  .burana-notification[hidden] {
+    display: none;
+  }
+
+  .burana-box {
+    width: min(100%, 520px);
+    border: 4px dotted #2b0f1a;
+    padding: 1.5rem;
+    background: #f0a3bc;
+    color: #2b0f1a;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    box-shadow: 8px 8px 0 rgba(43, 15, 26, 0.35);
+  }
+
+  .burana-box h2 {
+    margin: 0 0 0.75rem;
+    border-bottom: 2px dotted #2b0f1a;
+    padding-bottom: 0.4rem;
+  }
+
+  .burana-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  .burana-actions button {
+    border: 2px outset #eee;
+    padding: 0.55rem 0.85rem;
+    background: #d4d0c8;
+    color: #2b0f1a;
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .burana-actions button:active {
+    border: 2px inset #eee;
+  }
+
+  @media (max-width: 700px) {
+    body {
+      padding: 1.5em;
+    }
+  }
 </style>
 </head>
 
 <body>
 
 <h1>☕🎵 Woopti-flooba-doo, t'was a 418 for youu!🎶☕</h1>
- <br>
-  
-  <p>Hit the baby One More Time:</p>
 
-  <audio id="baby-whack" controls playsinline>
-    <source src="https://cdn.freesound.org/previews/104/104183_1690027-lq.mp3" type="audio/mpeg">
-  </audio>
-  <br>
-  <div class="baby-zone">
+<p>Hit the baby One More Time:</p>
+
+<audio id="baby-whack" controls playsinline>
+  <source src="https://cdn.freesound.org/previews/104/104183_1690027-lq.mp3" type="audio/mpeg">
+</audio>
+
+<br>
+
+<div class="baby-zone">
   <div id="baby-stage" class="baby-stage">
     <img
       id="dancing-baby"
@@ -227,47 +245,29 @@ Use this CSS instead.
   </div>
 </div>
 
-<script>
-  const babyAudio = document.getElementById("baby-whack");
-  const dancingBaby = document.getElementById("dancing-baby");
-  const babyRip = document.getElementById("baby-rip");
-
-  function killTheBaby() {
-    if (!dancingBaby || !babyRip) return;
-
-    dancingBaby.hidden = true;
-    babyRip.hidden = false;
-  }
-
-  babyAudio.addEventListener("play", killTheBaby);
-
-  babyAudio.addEventListener("click", () => {
-    babyAudio.play().catch(() => {
-      // Browser blocked playback or user clicked a non-play part of the controls.
-      // No problem. The play event will handle the real trigger.
-    });
-  });
-</script>
-  
 <div class="frame">
   <p>You found the server.</p>
   <p>You did not find a service.</p>
   <p>This domain is unconfigured, misconfigured, or wishful thinking, but coffee it ain't (sp.?)</p>
 
   <br>
-<br>
-<q>I'm a little teapot short and stout... ¯\_(ツ)_/¯ Ohh f*ck no.. I'm a sugar bowl.</q> <br>   <p>– YeayTou</p>
+  <br>
 
+  <q>I'm a little teapot short and stout... ¯\_(ツ)_/¯ Ohh f*ck no.. I'm a sugar bowl.</q>
+  <br>
+  <p>– YeayTou</p>
 </div>
-  
-  <p>If you know you know.</p>
+
+<p>If you know you know.</p>
+
 <div class="midi-player">
   <div id="retro-marquee" class="retro-marquee" hidden>
-  <div class="retro-marquee-track">
-    <span>🎵 NOW PLAYING: Canon in Enya🎵</span>
-    <span>☕ YeayTou has assumed control of the audio device. ☕</span>
+    <div class="retro-marquee-track">
+      <span>🎵 NOW PLAYING: Canon in Enya 🎵</span>
+      <span>☕ YeayTou has assumed control of the audio device. ☕</span>
+    </div>
   </div>
-</div>
+
   <button id="play">play</button>
   <button id="stop">stop</button>
 
@@ -275,6 +275,8 @@ Use this CSS instead.
     <source src="https://r2pitou.github.io/YeayTou/Canon%20in%20Enya.mp3" type="audio/mpeg">
   </audio>
 </div>
+
+<div id="mouse-haunting" class="mouse-haunting" aria-hidden="true"></div>
 
 <div id="stop-troll-log" class="stop-troll-log" aria-live="polite"></div>
 
@@ -291,7 +293,26 @@ Use this CSS instead.
   </div>
 </div>
 
+<p>
+  Go Enya! That lady had to withstand us 80-90's kids embedding Only Time midis on our old world static web pages with autoplay on and <b>NO</b> ✨pause✨ button ❤️
+  <br>
+  <iframe
+    allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+    frameborder="0"
+    height="175"
+    style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;"
+    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+    src="https://embed.music.apple.com/us/song/only-time/1499659361">
+  </iframe>
+</p>
+
+<p>GrannyCore Teapot by Arttu Pitou At</p>
+
 <script>
+  const babyAudio = document.getElementById("baby-whack");
+  const dancingBaby = document.getElementById("dancing-baby");
+  const babyRip = document.getElementById("baby-rip");
+
   const audio = document.getElementById("audio");
   const play = document.getElementById("play");
   const stop = document.getElementById("stop");
@@ -300,15 +321,31 @@ Use this CSS instead.
   const nahLikeIt = document.getElementById("nah-like-it");
   const buranaF5 = document.getElementById("burana-f5");
 
+  const retroMarquee = document.getElementById("retro-marquee");
+  const mouseHaunting = document.getElementById("mouse-haunting");
+
   let stopClicks = 0;
+  let bluePillChosen = false;
+  let retroCursesStarted = false;
+  let lastHauntTime = 0;
 
-  play.addEventListener("click", () => {
-    audio.play().catch(() => {
-      // Browser refused autoplay/playback. YeayTou remains disappointed.
-    });
+  const hauntWords = [
+    "Canon in Enya",
+    "Only Time will tell",
+    "YeayTou",
+    "no pause",
+    "Burana F5",
+    "🎵",
+    "☕",
+    "¯\\_(ツ)_/¯"
+  ];
 
-    play.disabled = true;
-  });
+  function killTheBaby() {
+    if (!dancingBaby || !babyRip) return;
+
+    dancingBaby.hidden = true;
+    babyRip.hidden = false;
+  }
 
   function appendTrollLine(text) {
     const line = document.createElement("p");
@@ -320,8 +357,68 @@ Use this CSS instead.
     buranaNotification.hidden = false;
   }
 
+  function startRetroCurses() {
+    if (retroCursesStarted) return;
+
+    retroCursesStarted = true;
+
+    if (retroMarquee) {
+      retroMarquee.hidden = false;
+    }
+
+    document.addEventListener("mousemove", hauntTheMouse);
+  }
+
+  function hauntTheMouse(event) {
+    const now = Date.now();
+
+    if (now - lastHauntTime < 90) return;
+    lastHauntTime = now;
+
+    if (!mouseHaunting) return;
+
+    const bit = document.createElement("span");
+    const word = hauntWords[Math.floor(Math.random() * hauntWords.length)];
+
+    bit.className = "mouse-haunt-bit";
+    bit.textContent = word;
+    bit.style.left = event.clientX + "px";
+    bit.style.top = event.clientY + "px";
+
+    mouseHaunting.appendChild(bit);
+
+    window.setTimeout(() => {
+      bit.remove();
+    }, 1500);
+  }
+
+  babyAudio.addEventListener("play", killTheBaby);
+
+  babyAudio.addEventListener("click", () => {
+    babyAudio.play().catch(() => {
+      // Browser blocked playback or user clicked a non-play part of the controls.
+      // The play event handles the real trigger.
+    });
+  });
+
+  play.addEventListener("click", () => {
+    startRetroCurses();
+
+    audio.play().catch(() => {
+      // Browser refused playback. YeayTou remains disappointed.
+    });
+
+    play.disabled = true;
+  });
+
+  audio.addEventListener("play", startRetroCurses);
+
   stop.addEventListener("click", (event) => {
     event.preventDefault();
+
+    if (bluePillChosen) {
+      return;
+    }
 
     stopClicks += 1;
 
@@ -352,7 +449,10 @@ Use this CSS instead.
   });
 
   nahLikeIt.addEventListener("click", () => {
+    bluePillChosen = true;
     buranaNotification.hidden = true;
+    appendTrollLine("You chose the blue pill. The stop button will remain decorative.");
+    appendTrollLine("Burana F5 remains available only to those who remember.");
   });
 
   buranaF5.addEventListener("click", () => {
@@ -360,71 +460,5 @@ Use this CSS instead.
   });
 </script>
 
-  <p>Go Enya! That lady had to withstand us 80-90's kids embedding Only Time midis on our old world static web pages with autoplay on and <b>NO</b> ✨pause✨ button ❤️<br>
-  <div id="mouse-haunting" class="mouse-haunting" aria-hidden="true"></div>
-  <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/song/only-time/1499659361"></iframe></p>
-<script>
-  const retroMarquee = document.getElementById("retro-marquee");
-  const mouseHaunting = document.getElementById("mouse-haunting");
-
-  let retroCursesStarted = false;
-  let lastHauntTime = 0;
-
-  const hauntWords = [
-    "Canon in Enya",
-    "Only Time will tell",
-    "YeayTou",
-    "🎵",
-    "☕",
-    "¯\_(ツ)_/¯"
-  ];
-
-  function startRetroCurses() {
-    if (retroCursesStarted) return;
-
-    retroCursesStarted = true;
-
-    if (retroMarquee) {
-      retroMarquee.hidden = false;
-    }
-
-    document.addEventListener("mousemove", hauntTheMouse);
-  }
-
-  function hauntTheMouse(event) {
-    const now = Date.now();
-
-    // Throttle so it does not create 9000 DOM nodes per second.
-    if (now - lastHauntTime < 90) return;
-    lastHauntTime = now;
-
-    if (!mouseHaunting) return;
-
-    const bit = document.createElement("span");
-    const word = hauntWords[Math.floor(Math.random() * hauntWords.length)];
-
-    bit.className = "mouse-haunt-bit";
-    bit.textContent = word;
-    bit.style.left = event.clientX + "px";
-    bit.style.top = event.clientY + "px";
-
-    mouseHaunting.appendChild(bit);
-
-    window.setTimeout(() => {
-      bit.remove();
-    }, 1500);
-  }
-
-  // Trigger on actual playback.
-  if (audio) {
-    audio.addEventListener("play", startRetroCurses);
-  }
-
-  // Also trigger on play button click, because evil should be punctual.
-  if (play) {
-    play.addEventListener("click", startRetroCurses);
-  }
-</script>
-  <p>GrannyCore Teapot by Arttu Pitou At</p>
 </body>
 </html>
